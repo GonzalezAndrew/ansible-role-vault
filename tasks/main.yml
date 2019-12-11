@@ -40,7 +40,7 @@
 - name: Vault systemd file
   become: true
   template:
-    src: vault.service.j2
+    src: template/vault.service.j2
     dest: /etc/systemd/system/vault.service
     owner: root
     group: "{{ vault_group }}"
