@@ -1,5 +1,5 @@
 ---
 vault_os_packages:
-  - git 
-  - unzip 
+  - git
+  - unzip
   - libselinux-python

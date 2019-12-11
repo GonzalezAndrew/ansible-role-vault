@@ -1,6 +1,6 @@
 ---
-- name: Include install 
-  include: install.yml 
+- name: Include install
+  include: install.yml
 
 - name: Vault Group
   become: true
@@ -37,18 +37,18 @@
     remote_src: true
     mode: 0664
     src: vault.hcl
-    dest: "{{ vault_config_main}}"
+    dest: "{{ vault_config_main }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
 
 - name: Check mlock capability
   become: true
-  command: "setcap cap_ipc_lock=+ep {{vault_bin}}/vault"
+  command: "setcap cap_ipc_lock=+ep {{ vault_config_main }}"
   changed_when: false
   ignore_errors: true
   register: vault_mlock_capability
 
 - name: Enable non root mlock
   become: true
-  command: "setcap cap_ipc_lock=+ep {{vault_bin}}/vault"
+  command: "setcap cap_ipc_lock=+ep {{ vault_config_main }}"
   when: vault_mlock_capability is failed
