@@ -2,9 +2,6 @@
 - name: Include OS vars
   include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Include install
-  include: install.yml
-
 - name: Vault Group
   become: true
   group:
@@ -35,11 +32,23 @@
   become: true
   copy:
     remote_src: true
-    mode: 0664
+    mode: 0400
     src: vault.hcl
     dest: "{{ vault_config_main }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
+
+- name: Vault systemd file
+  become: true
+  template:
+    src: vault.service.j2
+    dest: /etc/systemd/system/vault.service
+    owner: root
+    group: "{{ vault_group }}"
+    mode: 0644
+
+- name: Include install
+  include: install.yml
 
 - name: Check mlock capability
   become: true

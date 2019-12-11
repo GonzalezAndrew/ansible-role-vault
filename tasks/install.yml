@@ -20,7 +20,7 @@
   unarchive:
     remote_src: true
     src: "/tmp/vault/{{ vault_zip }}"
-    dest: "{{ vault_bin }}/vault"
+    dest: "{{ vault_bin }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: 0755
