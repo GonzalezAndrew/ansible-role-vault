@@ -31,7 +31,7 @@
 - name: Copy Vault configure file
   become: true
   copy:
-    src: vault.hcl
+    src: files/vault.hcl
     dest: "{{ vault_main_config }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
