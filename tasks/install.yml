@@ -13,7 +13,7 @@
 
 - name: Download Vault
   get_url:
-    url: "{{ vault_zip_url }}"
+    url: "{{ vault_url }}"
     dest: "/tmp/vault/{{ vault_zip }}"
 
 - name: Unarchive Vault
