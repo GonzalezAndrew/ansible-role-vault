@@ -31,12 +31,11 @@
 - name: Copy Vault configure file
   become: true
   copy:
-    remote_src: true
-    mode: 0400
     src: vault.hcl
     dest: "{{ vault_main_config }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
+    mode: 0400
 
 - name: Vault systemd file
   become: true
