@@ -1,4 +1,7 @@
 ---
+- name: Include OS vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
 - name: Include install
   include: install.yml
 
@@ -15,9 +18,6 @@
     comment: "Vault user"
     group: "{{ vault_group }}"
     system: true
-
-- name: Include OS vars
-  include_vars: "{{ ansible_os_family }}.yml"
 
 - name: Create directories
   become: true
