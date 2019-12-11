@@ -1,2 +1,54 @@
 ---
-# tasks file for ansible-role-vault
+- name: Include install 
+  include: install.yml 
+
+- name: Vault Group
+  become: true
+  group:
+    name: "{{ vault_group }}"
+    state: present
+
+- name: Vault User
+  become: true
+  user:
+    name: "{{ vault_user }}"
+    comment: "Vault user"
+    group: "{{ vault_group }}"
+    system: true
+
+- name: Include OS vars
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Create directories
+  become: true
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+  with_items:
+    - "{{ vault_log }}"
+    - "{{ vault_dir }}"
+    - "{{ vault_dir }}/ssl"
+
+- name: Copy Vault configure file
+  become: true
+  copy:
+    remote_src: true
+    mode: 0664
+    src: vault.hcl
+    dest: "{{ vault_config_main}}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
+
+- name: Check mlock capability
+  become: true
+  command: "setcap cap_ipc_lock=+ep {{vault_bin}}/vault"
+  changed_when: false
+  ignore_errors: true
+  register: vault_mlock_capability
+
+- name: Enable non root mlock
+  become: true
+  command: "setcap cap_ipc_lock=+ep {{vault_bin}}/vault"
+  when: vault_mlock_capability is failed

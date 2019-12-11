@@ -1,2 +1,23 @@
 ---
-# defaults file for ansible-role-vault
+# Dependencies
+vault_version: 1.2.3
+vault_architecture_map: 
+    amd64: amd64 
+    x86_64: amd64 
+    armv7l: arm 
+    aarch64: arm64 
+vault_architecture: "{{ vault_architecture_map[ansible_architecture] }}"
+vault_os: "{{ansible_system|lower}}"
+vault_zip: "vault_{{ vault_version }}_{{ vault_os }}_{{ vault_architecture }}.zip"
+vault_url: "https://releases.hashicorp.com/vault/{{ vault_version }}/vault_{{ vault_version }}_{{ vault_os }}_{{ vault_architecture }}.zip"
+
+# System 
+vault_user: vault 
+vault_group: vault 
+
+# Pathing
+vault_bin: /usr/local/bin 
+vault_dir: /etc/vault.d
+vault_log: /var/log/vault 
+vault_main_config: "{{ vault_bin }}/vault.hcl"
+vault_log_level: "{{ lookup('env','VAULT_LOG_LEVEL') | default('info', true) }}"
