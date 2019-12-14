@@ -30,11 +30,11 @@
 
 - name: Copy Vault configure file
   become: true
-  file:
-    path: "{{ vault_main_config }}"
+  copy:
+    src: files/vault.hcl
+    dest: "{{ vault_main_config }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
-    state: touch
     mode: 0400
   changed_when: false
 
