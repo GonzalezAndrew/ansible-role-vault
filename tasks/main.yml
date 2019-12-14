@@ -52,12 +52,12 @@
 
 - name: Check mlock capability
   become: true
-  command: "setcap cap_ipc_lock=+ep {{ vault_main_config }}"
+  command: "setcap cap_ipc_lock=+ep {{ vault_bin }}/vault"
   changed_when: false
   ignore_errors: true
   register: vault_mlock_capability
 
 - name: Enable non root mlock
   become: true
-  command: "setcap cap_ipc_lock=+ep {{ vault_main_config }}"
+  command: "setcap cap_ipc_lock=+ep {{ vault_bin }}/vault"
   when: vault_mlock_capability is failed
