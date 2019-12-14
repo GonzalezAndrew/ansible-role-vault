@@ -12,6 +12,7 @@
     state: directory
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
+  changed_when: false
 
 - name: Download Vault
   get_url:
@@ -19,6 +20,7 @@
     dest: "/tmp/vault/{{ vault_zip }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
+  changed_when: false
 
 - name: Unarchive Vault
   unarchive:
