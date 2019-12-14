@@ -10,11 +10,15 @@
   file:
     path: /tmp/vault
     state: directory
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
 
 - name: Download Vault
   get_url:
     url: "{{ vault_url }}"
     dest: "/tmp/vault/{{ vault_zip }}"
+    owner: "{{ vault_user }}"
+    group: "{{ vault_group }}"
 
 - name: Unarchive Vault
   unarchive:
@@ -29,3 +33,4 @@
   file:
     path: /tmp/vault
     state: absent
+    changed_when: false

@@ -36,6 +36,7 @@
     group: "{{ vault_group }}"
     state: touch
     mode: 0400
+    changed_when: false
 
 - name: Vault systemd file
   become: true
