@@ -1,6 +1,6 @@
 ---
 # Dependencies
-vault_version: 1.2.3
+vault_version: 1.3.2
 vault_architecture_map:
     amd64: amd64
     x86_64: amd64
@@ -33,4 +33,3 @@ root_token_dir_output: "{{ playbook_dir }}/rootKey"
 
 # Vault Unseal Server
 vault_unseal_server:
-unseal_keys_dir_output: "{{ playbook_dir }}/unsealKey"

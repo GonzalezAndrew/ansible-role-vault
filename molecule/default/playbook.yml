@@ -2,6 +2,10 @@
 - name: Converge
   hosts: all
   become: true
+  vars:
+    bucket_name: test-s3
+    vault_init_server: true
+    vault_unseal_server: true
   pre_tasks:
     - name: Update apt cache
       apt: update_cache=true cache_valid_time=600

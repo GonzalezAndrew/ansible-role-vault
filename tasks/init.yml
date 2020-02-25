@@ -1,7 +1,7 @@
 ---
 - name: Create Unseal Directories
   file: 
-    path: ""
+    path: "{{ unseal_keys_dir_output }}"
     state: directory 
   delegate_to: localhost 
 
