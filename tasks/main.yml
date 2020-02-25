@@ -30,13 +30,12 @@
 
 - name: Copy Vault configure file
   become: true
-  copy:
-    src: files/vault.hcl
+  template:
+    src: template/vault.hcl
     dest: "{{ vault_main_config }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
     mode: 0400
-  changed_when: false
 
 - name: Vault systemd file
   become: true
@@ -46,6 +45,7 @@
     owner: root
     group: "{{ vault_group }}"
     mode: 0644
+  notify: systemd_reload
 
 - name: Include install
   include: install.yml
@@ -61,3 +61,17 @@
   become: true
   command: "setcap cap_ipc_lock=+ep {{ vault_bin }}/vault"
   when: vault_mlock_capability is failed
+
+- name: Start Vault service
+  service:
+    name: vault 
+    state: started
+    enabled: yes 
+
+- name: Include Init
+  include: init.yml
+  when: vault_init_server
+
+- name: Include Unseal
+  include: unseal.yml 
+  when: vault_unseal_server

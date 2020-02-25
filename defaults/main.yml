@@ -21,3 +21,16 @@ vault_dir: /etc/vault.d
 vault_log: /var/log/vault
 vault_main_config: "{{ vault_dir }}/vault.hcl"
 vault_log_level: "{{ lookup('env','VAULT_LOG_LEVEL') | default('info', true) }}"
+
+# Vault config file
+bucket_name:
+aws_region: "{{ lookup('env', 'aws_region' ) | default('us-east-2', true) }}"
+
+# Vault Initialize Server
+vault_init_server:
+unseal_keys_dir_output: "{{ playbook_dir }}/unsealKey"
+root_token_dir_output: "{{ playbook_dir }}/rootKey"
+
+# Vault Unseal Server
+vault_unseal_server:
+unseal_keys_dir_output: "{{ playbook_dir }}/unsealKey"
