@@ -64,14 +64,14 @@
 
 - name: Start Vault service
   service:
-    name: vault 
+    name: vault
     state: started
-    enabled: yes 
+    enabled: yes
 
 - name: Include Init
   include: init.yml
   when: vault_init_server
 
 - name: Include Unseal
-  include: unseal.yml 
+  include: unseal.yml
   when: vault_unseal_server

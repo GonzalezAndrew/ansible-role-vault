@@ -1,9 +1,9 @@
 ---
 - name: Create Unseal Directories
-  file: 
+  file:
     path: "{{ unseal_keys_dir_output }}"
-    state: directory 
-  delegate_to: localhost 
+    state: directory
+  delegate_to: localhost
 
 - name: Create root key directories
   file:
@@ -31,5 +31,5 @@
 - name: Write root token to file
   copy:
     content: "{{ vault_init_parsed.root_token }}"
-    dest: "{{root_token_dir_output}}/rootkey"
+    dest: "{{ root_token_dir_output }}/rootkey"
   delegate_to: localhost

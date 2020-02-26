@@ -1,6 +1,6 @@
 ---
 - name: Reading unseal key contents
-  command: cat {{item}}
+  command: cat {{ item }}
   register: unseal_keys
   with_fileglob: "{{ unseal_keys_dir_output }}/*"
   delegate_to: localhost
@@ -11,4 +11,5 @@
     vault operator unseal {{ item.stdout }}
   environment:
     VAULT_ADDR: "http://127.0.0.1:8200"
-  with_items: "{{unseal_keys.results}}"
+  with_items: "{{ unseal_keys.results }}"
+  changed_when: false
