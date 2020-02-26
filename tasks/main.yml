@@ -45,7 +45,6 @@
     owner: root
     group: "{{ vault_group }}"
     mode: 0644
-  notify: systemd_reload
 
 - name: Include install
   include: install.yml
