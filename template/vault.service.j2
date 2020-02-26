@@ -4,8 +4,6 @@ Documentation=https://www.vaultproject.io/docs/
 Requires=network-online.target
 After=network-online.target
 ConditionFileNotEmpty={{ vault_main_config }}
-StartLimitIntervalSec=60
-StartLimitBurst=3
 
 [Service]
 User={{ vault_user }}
@@ -15,9 +13,9 @@ ProtectHome=read-only
 PrivateTmp=yes
 PrivateDevices=yes
 SecureBits=keep-caps
+CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 AmbientCapabilities=CAP_IPC_LOCK
 Capabilities=CAP_IPC_LOCK+ep
-CapabilityBoundingSet=CAP_SYSLOG CAP_IPC_LOCK
 NoNewPrivileges=yes
 ExecStart={{ vault_bin }}/vault server -config={{ vault_main_config }} -log-level={{ vault_log_level | lower }}
 ExecReload=/bin/kill --signal HUP $MAINPID
@@ -27,10 +25,8 @@ Restart=on-failure
 RestartSec=5
 TimeoutStopSec=30
 StartLimitInterval=60
-StartLimitIntervalSec=60
 StartLimitBurst=3
 LimitNOFILE=65536
-LimitMEMLOCK=infinity
 
 [Install]
 WantedBy=multi-user.target
