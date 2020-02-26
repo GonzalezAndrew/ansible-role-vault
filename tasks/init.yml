@@ -12,7 +12,8 @@
   delegate_to: localhost
 
 - name: Initialise Vault operator
-  shell: vault operator init -key-shares=5 -key-threshold=3 -format json
+  shell: |
+    {{ vault_bin }}/vault operator init -key-shares=3 -key-threshold=2 -format json
   environment:
     VAULT_ADDR: "http://127.0.0.1:8200"
   register: vault_init_results
