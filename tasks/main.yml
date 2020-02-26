@@ -35,7 +35,7 @@
     dest: "{{ vault_main_config }}"
     owner: "{{ vault_user }}"
     group: "{{ vault_group }}"
-    mode: 0400
+    mode: 0666
 
 - name: Vault systemd file
   become: true
