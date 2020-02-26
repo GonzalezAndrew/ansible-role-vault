@@ -67,6 +67,11 @@
     state: started
     enabled: yes
 
+- name: Ensure Vault service is running
+  systemd:
+    state: started
+    name: vault
+
 - name: Include Init
   include: init.yml
   when: vault_init_server
