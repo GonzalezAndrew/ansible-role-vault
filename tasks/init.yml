@@ -16,6 +16,7 @@
   environment:
     VAULT_ADDR: "http://127.0.0.1:8200"
   register: vault_init_results
+  changed_when: false
 
 - name: Parse output of vault init
   set_fact:

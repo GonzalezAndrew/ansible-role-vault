@@ -5,6 +5,7 @@
   with_fileglob: "{{ unseal_keys_dir_output }}/*"
   delegate_to: localhost
   become: no
+  changed_when: false
 
 - name: Unseal vault with unseal keys
   shell: |

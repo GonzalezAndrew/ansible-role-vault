@@ -7,7 +7,7 @@ lint:
   name: yamllint
 platforms:
   - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest"
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-amazonlinux2}-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
@@ -19,6 +19,9 @@ provisioner:
     vvv: true
   lint:
     name: ansible-lint
+    options:
+      x: ["ANSIBLE0013"]
+    force-color: true
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-playbook.yml}
 verifier:
