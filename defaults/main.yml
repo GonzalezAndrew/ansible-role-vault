@@ -23,6 +23,7 @@ vault_main_config: "{{ vault_dir }}/vault.hcl"
 vault_log_level: "{{ lookup('env','VAULT_LOG_LEVEL') | default('info', true) }}"
 
 # Vault config file
+vault_address:
 bucket_name:
 aws_region: "{{ lookup('env', 'aws_region' ) | default('us-east-2', true) }}"
 

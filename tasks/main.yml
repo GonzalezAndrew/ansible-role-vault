@@ -62,7 +62,7 @@
   when: vault_mlock_capability is failed
 
 - name: Start Vault service
-  service:
+  systemd:
     name: vault
     state: started
     enabled: yes
@@ -71,6 +71,7 @@
   systemd:
     state: started
     name: vault
+    daemon-reload: yes 
 
 - name: Include Init
   include: init.yml
